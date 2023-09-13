@@ -2,12 +2,15 @@ import Swal, { type SweetAlertIcon } from 'sweetalert2'
 
 interface Props {
   title: string
-  text: string
+  text?: string
   icon: SweetAlertIcon
-  confirmButtonText: string
-  confirmButtonColor: string
-  onConfirm: () => void
-  onDeny: () => void
+  showConfirmButton?: boolean
+  showCancelButton?: boolean
+  confirmButtonText?: string
+  confirmButtonColor?: string
+  cancelButtonText?: string
+  onConfirm?: () => void
+  onDeny?: () => void
 }
 
 export const useAlert = ({
@@ -16,8 +19,11 @@ export const useAlert = ({
   icon,
   confirmButtonText,
   confirmButtonColor,
-  onConfirm,
-  onDeny
+  showConfirmButton = false,
+  showCancelButton = false,
+  cancelButtonText = 'Cancel',
+  onConfirm = () => null,
+  onDeny = () => null
 }: Props) => {
   Swal.fire({
     title,
@@ -25,8 +31,9 @@ export const useAlert = ({
     icon,
     confirmButtonText,
     confirmButtonColor,
-    cancelButtonText: 'Cancel',
-    showCancelButton: true,
+    cancelButtonText,
+    showConfirmButton,
+    showCancelButton,
     backdrop: false
   }).then((res) => {
     if (res.isConfirmed) return onConfirm()

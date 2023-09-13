@@ -30,7 +30,7 @@ const handleClick = () => {
 </script>
 
 <template>
-  <h1>TODO APP</h1>
+  <h1>TODOS APP</h1>
 
   <main>
     <div
@@ -40,14 +40,14 @@ const handleClick = () => {
         gap: '0.3rem'
       }"
     >
-      <label style="font-weight: bold; font-size: large">New ToDo</label>
+      <label style="font-weight: bold; font-size: large">New Todo</label>
       <input v-model="title" ref="$title" type="text" placeholder="Buy potatoes" />
       <textarea
         v-model="description"
         placeholder="Buy 3kg of potatoes in the supermarket"
       ></textarea>
     </div>
-    <button @click="handleClick">Add ToDo</button>
+    <button @click="handleClick">Add Todo</button>
 
     <section style="margin-block-start: 1rem">
       <TodosList />

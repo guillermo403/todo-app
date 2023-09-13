@@ -15,12 +15,21 @@ defineProps<Props>()
 const handleDelete = () => {
   useAlert({
     title: '¿Sure you want to delete the todo??',
-    text: '',
     icon: 'error',
     confirmButtonText: 'Delete',
     confirmButtonColor: '#f27474',
     onConfirm: () => emit('delete'),
-    onDeny: () => null
+    onDeny: () => null,
+    showCancelButton: true,
+    showConfirmButton: true
+  })
+}
+
+const handleEdit = () => {
+  useAlert({
+    title: 'In development',
+    icon: 'info',
+    showCancelButton: true
   })
 }
 </script>
@@ -39,7 +48,7 @@ const handleDelete = () => {
       <button @click="emit('done')" style="background-color: rgb(72, 194, 35)">
         <IconDone />
       </button>
-      <button v-if="!isDone" @click="handleDelete" style="background-color: rgb(22, 98, 240)">
+      <button v-if="!isDone" @click="handleEdit" style="background-color: rgb(22, 98, 240)">
         <IconEdit />
       </button>
       <button @click="handleDelete" style="background-color: rgb(175, 41, 48)">
