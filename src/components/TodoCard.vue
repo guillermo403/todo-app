@@ -3,14 +3,16 @@ import IconDelete from './icons/IconDelete.vue'
 import IconEdit from './icons/IconEdit.vue'
 import IconDone from './icons/IconDone.vue'
 import { useAlert } from '@/composables/alert'
+import type { Todo } from '@/types/todos'
+import { useTodoStore } from '@/stores/todos'
 
-const emit = defineEmits(['delete', 'done'])
+const todoStore = useTodoStore()
 
 interface Props {
-  isDone?: boolean
+  todo: Todo
 }
 
-defineProps<Props>()
+const props = defineProps<Props>()
 
 const handleDelete = () => {
   useAlert({
@@ -18,7 +20,7 @@ const handleDelete = () => {
     icon: 'error',
     confirmButtonText: 'Delete',
     confirmButtonColor: '#f27474',
-    onConfirm: () => emit('delete'),
+    onConfirm: () => todoStore.deleteTodo(props.todo.id),
     onDeny: () => null,
     showCancelButton: true,
     showConfirmButton: true
@@ -27,9 +29,13 @@ const handleDelete = () => {
 
 const handleEdit = () => {
   useAlert({
-    title: 'In development',
-    icon: 'info',
-    showCancelButton: true
+    title: 'Edit todo title',
+    icon: 'question',
+    showCancelButton: true,
+    showConfirmButton: true,
+    input: 'text',
+    inputValue: props.todo.title,
+    onConfirm: (res: any) => todoStore.updateTodo(props.todo.id, res.value)
   })
 }
 </script>
@@ -37,7 +43,7 @@ const handleEdit = () => {
 <template>
   <div class="card">
     <div class="content">
-      <h1 class="title" :class="{ strike: isDone }">
+      <h1 class="title" :class="{ strike: todo.done }">
         <slot name="title"></slot>
       </h1>
       <p class="description">
@@ -45,10 +51,10 @@ const handleEdit = () => {
       </p>
     </div>
     <div class="actions">
-      <button @click="emit('done')" style="background-color: rgb(72, 194, 35)">
+      <button @click="todoStore.doTodo(todo.id)" style="background-color: rgb(72, 194, 35)">
         <IconDone />
       </button>
-      <button v-if="!isDone" @click="handleEdit" style="background-color: rgb(22, 98, 240)">
+      <button v-if="!todo.done" @click="handleEdit" style="background-color: rgb(22, 98, 240)">
         <IconEdit />
       </button>
       <button @click="handleDelete" style="background-color: rgb(175, 41, 48)">

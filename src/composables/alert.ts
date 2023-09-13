@@ -1,4 +1,4 @@
-import Swal, { type SweetAlertIcon } from 'sweetalert2'
+import Swal, { type SweetAlertIcon, type SweetAlertInput } from 'sweetalert2'
 
 interface Props {
   title: string
@@ -9,7 +9,9 @@ interface Props {
   confirmButtonText?: string
   confirmButtonColor?: string
   cancelButtonText?: string
-  onConfirm?: () => void
+  input?: SweetAlertInput
+  inputValue?: string
+  onConfirm?: (arg0: any) => void
   onDeny?: () => void
 }
 
@@ -17,11 +19,13 @@ export const useAlert = ({
   title,
   text,
   icon,
-  confirmButtonText,
+  confirmButtonText = 'Save',
   confirmButtonColor,
   showConfirmButton = false,
   showCancelButton = false,
   cancelButtonText = 'Cancel',
+  input,
+  inputValue,
   onConfirm = () => null,
   onDeny = () => null
 }: Props) => {
@@ -34,9 +38,11 @@ export const useAlert = ({
     cancelButtonText,
     showConfirmButton,
     showCancelButton,
+    input,
+    inputValue,
     backdrop: false
   }).then((res) => {
-    if (res.isConfirmed) return onConfirm()
+    if (res.isConfirmed) return onConfirm(res)
     if (res.isDenied) return onDeny()
   })
 }

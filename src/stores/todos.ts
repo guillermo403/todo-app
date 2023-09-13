@@ -25,8 +25,13 @@ export const useTodoStore = defineStore('todos', () => {
     persist()
   }
 
+  const updateTodo = (id: Todo['id'], title: string) => {
+    todos.value[findTodoIndex(id)].title = title
+    persist()
+  }
+
   const findTodoIndex = (id: Todo['id']) => todos.value.findIndex((todo) => todo.id === id)
   const persist = () => useLocalStorage('todos', todos.value)
 
-  return { todos, addTodo, deleteTodo, doTodo }
+  return { todos, addTodo, deleteTodo, doTodo, updateTodo }
 })
