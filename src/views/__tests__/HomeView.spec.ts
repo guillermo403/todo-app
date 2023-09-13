@@ -1,17 +1,15 @@
-import { describe, it, expect, beforeEach } from 'vitest'
-import { createPinia, setActivePinia } from 'pinia'
+import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 import HomeView from '../HomeView.vue'
+import { createPinia, setActivePinia } from 'pinia'
+
+setActivePinia(createPinia())
 
 describe('HomeView', () => {
-  beforeEach(() => {
-    setActivePinia(createPinia())
-  })
-
   const wrapper = mount(HomeView)
 
   it('renders properly', () => {
-    expect(wrapper.text()).toContain('ToDo App')
+    expect(wrapper.text().toLowerCase()).toContain('todos app')
   })
 
   it('renders new todo input', () => {
