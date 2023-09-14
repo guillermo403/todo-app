@@ -20,8 +20,8 @@ export const useTodoStore = defineStore('todos', () => {
 
   const doTodo = (id: Todo['id']) => {
     const todoIndex = findTodoIndex(id)
-    const isDone = todos.value[todoIndex].done
-    todos.value[todoIndex].done = !isDone
+    const isFinished = todos.value[todoIndex].finished
+    todos.value[todoIndex].finished = !isFinished
     persist()
   }
 
