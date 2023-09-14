@@ -18,7 +18,7 @@ const handleClick = () => {
     title: title.value,
     description: description.value,
     createdAt: new Date(),
-    done: false
+    finished: false
   }
 
   todoStore.addTodo(newTodo)

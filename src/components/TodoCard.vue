@@ -43,7 +43,7 @@ const handleEdit = () => {
 <template>
   <div class="card">
     <div class="content">
-      <h1 class="title" :class="{ strike: todo.done }">
+      <h1 class="title" :class="{ strike: todo.finished }">
         <slot name="title"></slot>
       </h1>
       <p class="description">
@@ -54,7 +54,7 @@ const handleEdit = () => {
       <button @click="todoStore.doTodo(todo.id)" style="background-color: rgb(72, 194, 35)">
         <IconDone />
       </button>
-      <button v-if="!todo.done" @click="handleEdit" style="background-color: rgb(22, 98, 240)">
+      <button v-if="!todo.finished" @click="handleEdit" style="background-color: rgb(22, 98, 240)">
         <IconEdit />
       </button>
       <button @click="handleDelete" style="background-color: rgb(175, 41, 48)">
